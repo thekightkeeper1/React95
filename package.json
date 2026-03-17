@@ -9,7 +9,7 @@
     "components",
     "vaporwave"
   ],
-  "author": "Artur Bień <artur.bien+react95@gmail.com> (https://www.linkedin.com/in/arturbien/)",
+  "author": "Artur Bień <artur.bien+react95@gmail.com> (https://www.linkedin.com/in/arturbien/). Refactor by https://github.com/thekightkeeper1",
   "funding": [
     {
       "type": "paypal",
@@ -21,7 +21,7 @@
     }
   ],
   "license": "MIT",
-  "repository": "git@github.com:arturbien/React95.git",
+  "repository": "git@github.com/thekightkeeper1/React95.git",
   "homepage": "https://react95.io",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
