@@ -28,7 +28,7 @@ const StyledNumberInputWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<{ $variant?: string }>`
   width: 30px;
   padding: 0;
   flex-shrink: 0;

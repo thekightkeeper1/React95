@@ -59,7 +59,8 @@ const Tip = styled.span<{ $position: TooltipPosition; $show: boolean }>`
   box-shadow: ${shadow};
   text-align: center;
   font-size: 1rem;
-  ${props => positioningStyles[props.$position]}
+  ${(props: { $position: TooltipPosition }) =>
+    positioningStyles[props.$position]}
 `;
 
 const Wrapper = styled.div`

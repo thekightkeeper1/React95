@@ -130,7 +130,7 @@ const TextInput = forwardRef<
             disabled={disabled}
             onChange={disabled ? undefined : onChange}
             readOnly={disabled}
-            ref={ref}
+            ref={ref as React.Ref<HTMLTextAreaElement>}
             $variant={variant}
             {...(inputProps as TextInputTextAreaProps)}
           />
@@ -140,13 +140,13 @@ const TextInput = forwardRef<
             disabled={disabled}
             onChange={disabled ? undefined : onChange}
             readOnly={disabled}
-            ref={ref}
-            type={otherProps.type ?? 'text'}
+            ref={ref as React.Ref<HTMLInputElement>}
+            type={(otherProps as TextInputInputProps).type ?? 'text'}
             $variant={variant}
             {...(inputProps as TextInputInputProps)}
           />
         ),
-      [disabled, inputProps, multiline, onChange, otherProps.type, ref, variant]
+      [disabled, inputProps, multiline, onChange, otherProps, ref, variant]
     );
 
     return (

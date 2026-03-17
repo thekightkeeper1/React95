@@ -24,15 +24,16 @@ export const StyledMenuListItem = styled.li<{
   display: flex;
   align-items: center;
   position: relative;
-  height: ${props => blockSizes[props.$size]};
-  width: ${props => (props.$square ? blockSizes[props.$size] : 'auto')};
+  height: ${(props: { $size: Sizes }) => blockSizes[props.$size]};
+  width: ${(props: { $size: Sizes; $square?: boolean }) =>
+    props.$square ? blockSizes[props.$size] : 'auto'};
   padding: 0 8px;
   font-size: 1rem;
   white-space: nowrap;
   justify-content: ${props =>
     props.$square ? 'space-around' : 'space-between'};
   text-align: center;
-  line-height: ${props => blockSizes[props.$size]};
+  line-height: ${(props: { $size: Sizes }) => blockSizes[props.$size]};
   color: ${({ theme }) => theme.materialText};
   pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
   font-weight: ${({ $primary }) => ($primary ? 'bold' : 'normal')};

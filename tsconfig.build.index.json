@@ -7,10 +7,10 @@
     "sourceMap": false
   },
   "include": [
-    "types/global.d.ts",
+    "types/globals.d.ts",
     "types/themes.d.ts",
     "src/**/*.ts",
-    "src/*/*.tsx"
+    "src/**/*.tsx"
   ],
   "exclude": [
     "**/*.spec.ts",

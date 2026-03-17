@@ -21,7 +21,10 @@
     }
   ],
   "license": "MIT",
-  "repository": "git@github.com/thekightkeeper1/React95.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thekightkeeper1/React95.git"
+  },
   "homepage": "https://react95.io",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

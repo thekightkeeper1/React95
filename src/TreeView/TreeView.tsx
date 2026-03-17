@@ -158,7 +158,7 @@ const Details = styled.details`
   }
 `;
 
-const Summary = styled.summary`
+const Summary = styled.summary<{ $disabled: boolean }>`
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -166,7 +166,7 @@ const Summary = styled.summary`
   color: ${({ theme }) => theme.materialText};
   user-select: none;
   padding-left: 18px;
-  ${focusedElementStyles};
+  ${(_props: { $disabled: boolean }) => focusedElementStyles};
 
   &::-webkit-details-marker {
     display: none;
@@ -187,7 +187,7 @@ const Summary = styled.summary`
   }
 `;
 
-const TitleWithIcon = styled(StyledLabel)`
+const TitleWithIcon = styled(StyledLabel)<{ $disabled: boolean }>`
   position: relative;
   z-index: 1;
   background: none;
@@ -196,7 +196,7 @@ const TitleWithIcon = styled(StyledLabel)`
   padding-top: 8px;
   padding-bottom: 8px;
   margin: 0;
-  ${focusedElementStyles};
+  ${(_props: { $disabled: boolean }) => focusedElementStyles};
 `;
 
 const Icon = styled.span`

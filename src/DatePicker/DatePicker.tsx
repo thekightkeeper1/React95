@@ -157,7 +157,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       <Window
         className={className}
         ref={ref}
-        $shadow={shadow}
+        shadow={shadow}
         style={{ margin: 20 }}
       >
         <WindowHeader>

@@ -79,7 +79,7 @@ const StyledFlatCheckbox = styled.div<StyledCheckboxProps>`
 `;
 
 type IconProps = {
-  'data-testid': 'checkmarkIcon';
+  'data-testid'?: 'checkmarkIcon';
   $disabled: boolean;
   $variant: RadioVariant;
 };

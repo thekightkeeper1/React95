@@ -1,4 +1,5 @@
 import { ComponentType } from 'react';
+import 'styled-components';
 
 import { Color, Theme, WindowsTheme } from './common/themes/types';
 
@@ -26,5 +27,9 @@ export type CommonThemeProps = {
   $disabled?: boolean;
   $shadow?: boolean;
 };
+
+declare module 'styled-components' {
+  export interface DefaultTheme extends Theme {}
+}
 
 export { Color, Theme, WindowsTheme };
