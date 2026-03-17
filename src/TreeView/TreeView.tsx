@@ -46,7 +46,7 @@ const Text = styled(LabelText)`
 `;
 
 const focusedElementStyles = css<{ $disabled: boolean }>`
-  :focus {
+  &:focus {
     outline: none;
   }
 
@@ -55,7 +55,7 @@ const focusedElementStyles = css<{ $disabled: boolean }>`
       ? css`
           cursor: pointer;
 
-          :focus {
+          &:focus {
             ${Text} {
               background: ${({ theme }) => theme.hoverBackground};
               color: ${({ theme }) => theme.materialTextInvert};
@@ -66,12 +66,12 @@ const focusedElementStyles = css<{ $disabled: boolean }>`
       : `cursor: default;`}
 `;
 
-const TreeWrapper = styled.ul<{ isRootLevel: boolean }>`
+const TreeWrapper = styled.ul<{ $isRootLevel: boolean }>`
   position: relative;
   isolation: isolate;
 
-  ${({ isRootLevel }) =>
-    isRootLevel &&
+  ${({ $isRootLevel }) =>
+    $isRootLevel &&
     css`
       &:before {
         content: '';
@@ -103,12 +103,12 @@ const TreeWrapper = styled.ul<{ isRootLevel: boolean }>`
   }
 `;
 
-const TreeItem = styled.li<{ hasItems: boolean; isRootLevel: boolean }>`
+const TreeItem = styled.li<{ $hasItems: boolean; $isRootLevel: boolean }>`
   position: relative;
-  padding-left: ${({ hasItems }) => (!hasItems ? '13px' : '0')};
+  padding-left: ${({ $hasItems }) => (!$hasItems ? '13px' : '0')};
 
-  ${({ isRootLevel }) =>
-    !isRootLevel
+  ${({ $isRootLevel }) =>
+    !$isRootLevel
       ? css`
           &:last-child {
             &:after {
@@ -248,11 +248,11 @@ function TreeBranch<T>({
       return (
         <TreeItem
           key={item.label}
-          isRootLevel={isRootLevel}
+          $isRootLevel={isRootLevel}
           role='treeitem'
           aria-expanded={isMenuShown}
           aria-selected={isSelected}
-          hasItems={hasItems}
+          $hasItems={hasItems}
         >
           {!hasItems ? (
             <TitleWithIcon
@@ -298,7 +298,7 @@ function TreeBranch<T>({
       style={isRootLevel ? style : undefined}
       ref={isRootLevel ? innerRef : undefined}
       role={isRootLevel ? 'tree' : 'group'}
-      isRootLevel={isRootLevel}
+      $isRootLevel={isRootLevel}
     >
       {tree.map(renderLeaf)}
     </TreeWrapper>

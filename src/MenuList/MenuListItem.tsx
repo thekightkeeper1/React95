@@ -15,27 +15,27 @@ type MenuListItemProps = {
 
 export const StyledMenuListItem = styled.li<{
   $disabled?: boolean;
-  square?: boolean;
-  primary?: boolean;
-  size: Sizes;
+  $square?: boolean;
+  $primary?: boolean;
+  $size: Sizes;
 }>`
   box-sizing: border-box;
 
   display: flex;
   align-items: center;
   position: relative;
-  height: ${props => blockSizes[props.size]};
-  width: ${props => (props.square ? blockSizes[props.size] : 'auto')};
+  height: ${props => blockSizes[props.$size]};
+  width: ${props => (props.$square ? blockSizes[props.$size] : 'auto')};
   padding: 0 8px;
   font-size: 1rem;
   white-space: nowrap;
   justify-content: ${props =>
-    props.square ? 'space-around' : 'space-between'};
+    props.$square ? 'space-around' : 'space-between'};
   text-align: center;
-  line-height: ${props => blockSizes[props.size]};
+  line-height: ${props => blockSizes[props.$size]};
   color: ${({ theme }) => theme.materialText};
   pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
-  font-weight: ${({ primary }) => (primary ? 'bold' : 'normal')};
+  font-weight: ${({ $primary }) => ($primary ? 'bold' : 'normal')};
   &:hover {
     ${({ theme, $disabled }) =>
       !$disabled &&
@@ -71,10 +71,10 @@ const MenuListItem = forwardRef<HTMLLIElement, MenuListItemProps>(
     return (
       <StyledMenuListItem
         $disabled={disabled}
-        size={size}
-        square={square}
+        $size={size}
+        $square={square}
         onClick={disabled ? undefined : onClick}
-        primary={primary}
+        $primary={primary}
         // tabIndex={tabIndex}
         role='menuitem'
         ref={ref}

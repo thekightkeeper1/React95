@@ -58,7 +58,11 @@ const SelectNative = forwardRef<HTMLSelectElement, SelectNativeProps>(
     );
 
     return (
-      <Wrapper className={className} style={{ ...style, width }}>
+      <Wrapper
+        className={className}
+        style={{ ...style, width }}
+        $disabled={disabled}
+      >
         <StyledInner>
           <StyledNativeSelect
             {...otherProps}

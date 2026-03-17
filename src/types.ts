@@ -24,7 +24,7 @@ export type HTMLDataAttributes = Record<`data-${string}`, any>;
 export type CommonThemeProps = {
   'data-testid'?: string;
   $disabled?: boolean;
-  shadow?: boolean;
+  $shadow?: boolean;
 };
 
 export { Color, Theme, WindowsTheme };

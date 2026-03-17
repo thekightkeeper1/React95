@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 import { createBorderStyles, createBoxStyles } from '../common';
-import { CommonStyledProps } from '../types';
+import { CommonStyledProps, CommonThemeProps } from '../types';
 
 type FrameProps = {
   children?: React.ReactNode;
@@ -41,13 +41,13 @@ const createFrameStyles = (variant: FrameProps['variant']) => {
   }
 };
 
-const StyledFrame = styled.div<Required<Pick<FrameProps, 'variant'>>>`
+const StyledFrame = styled.div<{ $variant: FrameProps['variant'] } & CommonThemeProps>`
   position: relative;
   font-size: 1rem;
-  ${({ variant }) => createFrameStyles(variant)}
-  ${({ variant }) =>
+  ${({ $variant }) => createFrameStyles($variant)}
+  ${({ $variant }) =>
     createBoxStyles(
-      variant === 'field'
+      $variant === 'field'
         ? { background: 'canvas', color: 'canvasText' }
         : undefined
     )}
@@ -56,7 +56,12 @@ const StyledFrame = styled.div<Required<Pick<FrameProps, 'variant'>>>`
 const Frame = forwardRef<HTMLDivElement, FrameProps>(
   ({ children, shadow = false, variant = 'window', ...otherProps }, ref) => {
     return (
-      <StyledFrame ref={ref} shadow={shadow} variant={variant} {...otherProps}>
+      <StyledFrame
+        ref={ref}
+        $shadow={shadow}
+        $variant={variant}
+        {...otherProps}
+      >
         {children}
       </StyledFrame>
     );

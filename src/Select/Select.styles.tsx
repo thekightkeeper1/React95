@@ -15,8 +15,8 @@ import { SelectVariants } from './Select.types';
 
 type CommonSelectStyleProps = {
   $disabled?: boolean;
-  native?: boolean;
-  variant?: SelectVariants;
+  $native?: boolean;
+  $variant?: SelectVariants;
 } & CommonThemeProps;
 
 const sharedInputContentStyles = css`
@@ -109,12 +109,12 @@ export const StyledNativeSelect = styled.select`
 
 export const StyledDropdownButton = styled(Button).attrs(() => ({
   'aria-hidden': 'true'
-}))<Omit<CommonSelectStyleProps, 'variant'>>`
+}))<CommonSelectStyleProps>`
   width: 30px;
   padding: 0;
   flex-shrink: 0;
-  ${({ variant = 'default' }) =>
-    variant === 'flat'
+  ${({ $variant = 'default' }) =>
+    $variant === 'flat'
       ? css`
           height: 100%;
           margin-right: 0;
@@ -122,9 +122,9 @@ export const StyledDropdownButton = styled(Button).attrs(() => ({
       : css`
           height: 100%;
         `}
-  ${({ native = false, variant = 'default' }) =>
-    native &&
-    (variant === 'flat'
+  ${({ $native = false, $variant = 'default' }) =>
+    $native &&
+    ($variant === 'flat'
       ? `
       position: absolute;
       right: 0;
@@ -136,8 +136,8 @@ export const StyledDropdownButton = styled(Button).attrs(() => ({
     right: 2px;
     height: calc(100% - 4px);
     `)}
-    pointer-events: ${({ $disabled = false, native = false }) =>
-    $disabled || native ? 'none' : 'auto'}
+    pointer-events: ${({ $disabled = false, $native = false }) =>
+    $disabled || $native ? 'none' : 'auto'}
 `;
 
 export const StyledDropdownIcon = styled.span<CommonSelectStyleProps>`
@@ -178,8 +178,8 @@ export const StyledDropdownMenu = styled.ul<CommonSelectStyleProps>`
   z-index: 1;
   cursor: pointer;
   box-shadow: ${commonShadow};
-  ${({ variant = 'default' }) =>
-    variant === 'flat'
+  ${({ $variant = 'default' }) =>
+    $variant === 'flat'
       ? css`
           bottom: 2px;
           width: 100%;
@@ -190,10 +190,10 @@ export const StyledDropdownMenu = styled.ul<CommonSelectStyleProps>`
           width: calc(100% - 2px);
           border: 2px solid ${({ theme }) => theme.borderDarkest};
         `}
-  ${({ variant = 'default' }) => createScrollbars(variant)}
+  ${({ $variant = 'default' }) => createScrollbars($variant)}
 `;
 
-export const StyledDropdownMenuItem = styled.li<{ active: boolean }>`
+export const StyledDropdownMenuItem = styled.li<{ $active: boolean }>`
   box-sizing: border-box;
 
   width: 100%;
@@ -209,6 +209,6 @@ export const StyledDropdownMenuItem = styled.li<{ active: boolean }>`
   &:focus {
     outline: 0;
   }
-  ${({ active }) => (active ? sharedHoverStyles : '')}
+  ${({ $active }) => ($active ? sharedHoverStyles : '')}
   user-select: none;
 `;

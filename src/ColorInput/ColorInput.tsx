@@ -46,7 +46,7 @@ export const StyledColorInput = styled.input`
 
 // TODO replace with SVG icon
 const ColorPreview = styled.div<{
-  color: string;
+  $color: string;
   $disabled: boolean;
 }>`
   box-sizing: border-box;
@@ -55,7 +55,7 @@ const ColorPreview = styled.div<{
   width: 35px;
   margin-right: 5px;
 
-  background: ${({ color }) => color};
+  background: ${({ $color }) => $color};
 
   ${({ $disabled }) =>
     $disabled
@@ -80,11 +80,10 @@ const ColorPreview = styled.div<{
   }
 `;
 
-const ChevronIcon = styled.span<
-  Required<Pick<ColorInputProps, 'variant'>> & {
-    $disabled: boolean;
-  }
->`
+const ChevronIcon = styled.span<{
+  $variant: 'default' | 'flat';
+  $disabled: boolean;
+}>`
   width: 0px;
   height: 0px;
   border-left: 6px solid transparent;
@@ -107,7 +106,7 @@ const ChevronIcon = styled.span<
     content: '';
     box-sizing: border-box;
     position: absolute;
-    top: ${({ variant }) => (variant === 'flat' ? '6px' : '8px')};
+    top: ${({ $variant }) => ($variant === 'flat' ? '6px' : '8px')};
     right: 8px;
     width: 16px;
     height: 19px;
@@ -143,7 +142,12 @@ const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
     return (
       //  we only need button styles, so we display
       // it as a div and reset type attribute
-      <Trigger disabled={disabled} as='div' variant={variant} size='md'>
+      <Trigger
+        disabled={disabled}
+        as='div'
+        $variant={variant}
+        $size='md'
+      >
         <StyledColorInput
           onChange={handleChange}
           readOnly={disabled}
@@ -155,11 +159,11 @@ const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
         />
         <ColorPreview
           $disabled={disabled}
-          color={valueDerived ?? '#008080'}
+          $color={valueDerived ?? '#008080'}
           role='presentation'
         />
         {variant === 'default' && <StyledSeparator orientation='vertical' />}
-        <ChevronIcon $disabled={disabled} variant={variant} />
+        <ChevronIcon $disabled={disabled} $variant={variant} />
       </Trigger>
     );
   }

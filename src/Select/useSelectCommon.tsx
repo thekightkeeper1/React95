@@ -52,9 +52,9 @@ export const useSelectCommon = <T,>({
         as='div'
         data-testid='select-button'
         $disabled={disabled}
-        native={native}
+        $native={native}
         tabIndex={-1}
-        variant={variant === 'flat' ? 'flat' : 'raised'}
+        $variant={variant === 'flat' ? 'flat' : 'raised'}
       >
         <StyledDropdownIcon data-testid='select-icon' $disabled={disabled} />
       </StyledDropdownButton>

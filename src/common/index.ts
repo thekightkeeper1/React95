@@ -178,7 +178,7 @@ export const createBorderStyles = ({
       theme[borderStyles[style][borders.bottomRightOuter]]};
     border-bottom-color: ${({ theme }) =>
       theme[borderStyles[style][borders.bottomRightOuter]]};
-    box-shadow: ${({ theme, shadow: hasShadow }) =>
+    box-shadow: ${({ theme, $shadow: hasShadow }) =>
       createInnerBorderWithShadow({
         theme,
         topLeftInner: borderStyles[style][borders.topLeftInner],
@@ -213,18 +213,18 @@ const createTriangleSVG = (color: Color, angle = 0) => {
 };
 
 export const createScrollbars = (variant = 'default') => css`
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 26px;
     height: 26px;
   }
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     ${({ theme }) =>
       createHatchedBackground({
         mainColor: variant === 'flat' ? theme.flatLight : theme.material,
         secondaryColor: variant === 'flat' ? theme.canvas : theme.borderLightest
       })}
   }
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     ${createBoxStyles()}
     ${variant === 'flat'
       ? createFlatBoxStyles()
@@ -232,10 +232,10 @@ export const createScrollbars = (variant = 'default') => css`
       outline-offset: -2px;
   }
 
-  ::-webkit-scrollbar-corner {
+  &::-webkit-scrollbar-corner {
     background-color: ${({ theme }) => theme.material};
   }
-  ::-webkit-scrollbar-button {
+  &::-webkit-scrollbar-button {
     ${createBoxStyles()}
     ${variant === 'flat'
       ? createFlatBoxStyles()
@@ -248,37 +248,37 @@ export const createScrollbars = (variant = 'default') => css`
     background-size: 100%;
     background-position: 0 0;
   }
-  ::-webkit-scrollbar-button:active,
-  ::-webkit-scrollbar-button:active {
+  &::-webkit-scrollbar-button:active,
+  &::-webkit-scrollbar-button:active {
     background-position: 0 1px;
     ${variant === 'default'
       ? createBorderStyles({ style: 'window', invert: true })
       : ''}
   }
 
-  ::-webkit-scrollbar-button:horizontal:increment:start,
-  ::-webkit-scrollbar-button:horizontal:decrement:end,
-  ::-webkit-scrollbar-button:vertical:increment:start,
-  ::-webkit-scrollbar-button:vertical:decrement:end {
+  &::-webkit-scrollbar-button:horizontal:increment:start,
+  &::-webkit-scrollbar-button:horizontal:decrement:end,
+  &::-webkit-scrollbar-button:vertical:increment:start,
+  &::-webkit-scrollbar-button:vertical:decrement:end {
     display: none;
   }
 
-  ::-webkit-scrollbar-button:horizontal:decrement {
+  &::-webkit-scrollbar-button:horizontal:decrement {
     background-image: ${({ theme }) =>
       createTriangleSVG(theme.materialText, 90)};
   }
 
-  ::-webkit-scrollbar-button:horizontal:increment {
+  &::-webkit-scrollbar-button:horizontal:increment {
     background-image: ${({ theme }) =>
       createTriangleSVG(theme.materialText, 270)};
   }
 
-  ::-webkit-scrollbar-button:vertical:decrement {
+  &::-webkit-scrollbar-button:vertical:decrement {
     background-image: ${({ theme }) =>
       createTriangleSVG(theme.materialText, 180)};
   }
 
-  ::-webkit-scrollbar-button:vertical:increment {
+  &::-webkit-scrollbar-button:vertical:increment {
     background-image: ${({ theme }) =>
       createTriangleSVG(theme.materialText, 0)};
   }

@@ -39,13 +39,15 @@ type TextInputProps = {
 } & (TextInputInputProps | TextInputTextAreaProps) &
   CommonStyledProps;
 
-type WrapperProps = Pick<TextInputProps, 'fullWidth' | 'variant'> &
-  CommonThemeProps;
+type WrapperProps = {
+  $fullWidth?: boolean;
+  $variant?: 'default' | 'flat';
+} & CommonThemeProps;
 
 const sharedWrapperStyles = css<WrapperProps>`
   display: flex;
   align-items: center;
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'auto')};
   min-height: ${blockSizes.md};
 `;
 
@@ -65,7 +67,11 @@ const FlatWrapper = styled.div.attrs({
   position: relative;
 `;
 
-type InputProps = Pick<TextInputProps, 'disabled' | 'fullWidth' | 'variant'>;
+type InputProps = {
+  $disabled?: boolean;
+  $fullWidth?: boolean;
+  $variant?: 'default' | 'flat';
+};
 
 const sharedInputStyles = css<InputProps>`
   display: block;
@@ -79,8 +85,8 @@ const sharedInputStyles = css<InputProps>`
   min-height: 27px;
   font-family: inherit;
   color: ${({ theme }) => theme.canvasText};
-  ${({ disabled, variant }) =>
-    variant !== 'flat' && disabled && createDisabledTextStyles()}
+  ${({ $disabled, $variant }) =>
+    $variant !== 'flat' && $disabled && createDisabledTextStyles()}
 `;
 
 const StyledTextInput = styled.input<InputProps>`
@@ -92,7 +98,7 @@ const StyledTextArea = styled.textarea<InputProps>`
   ${sharedInputStyles}
   padding: 8px;
   resize: none;
-  ${({ variant }) => createScrollbars(variant)}
+  ${({ $variant = 'default' }) => createScrollbars($variant)}
 `;
 
 const TextInput = forwardRef<
@@ -114,37 +120,41 @@ const TextInput = forwardRef<
   ) => {
     const WrapperComponent = variant === 'flat' ? FlatWrapper : Wrapper;
 
+    const { multiline, ...inputProps } = otherProps;
+
     const field = useMemo(
       () =>
-        otherProps.multiline ? (
+        multiline ? (
           <StyledTextArea
+            $disabled={disabled}
             disabled={disabled}
             onChange={disabled ? undefined : onChange}
             readOnly={disabled}
             ref={ref}
-            variant={variant}
-            {...otherProps}
+            $variant={variant}
+            {...(inputProps as TextInputTextAreaProps)}
           />
         ) : (
           <StyledTextInput
+            $disabled={disabled}
             disabled={disabled}
             onChange={disabled ? undefined : onChange}
             readOnly={disabled}
             ref={ref}
             type={otherProps.type ?? 'text'}
-            variant={variant}
-            {...otherProps}
+            $variant={variant}
+            {...(inputProps as TextInputInputProps)}
           />
         ),
-      [disabled, onChange, otherProps, ref, variant]
+      [disabled, inputProps, multiline, onChange, otherProps.type, ref, variant]
     );
 
     return (
       <WrapperComponent
         className={className}
-        fullWidth={fullWidth}
+        $fullWidth={fullWidth}
         $disabled={disabled}
-        shadow={shadow}
+        $shadow={shadow}
         style={style}
       >
         {field}

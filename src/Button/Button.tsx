@@ -38,32 +38,31 @@ type ButtonProps = {
   > &
   CommonStyledProps;
 
-type StyledButtonProps = Pick<
-  ButtonProps,
-  | 'active'
-  | 'disabled'
-  | 'fullWidth'
-  | 'primary'
-  | 'size'
-  | 'square'
-  | 'variant'
->;
+type StyledButtonProps = {
+  $active?: boolean;
+  $disabled?: boolean;
+  $fullWidth?: boolean;
+  $primary?: boolean;
+  $size?: Sizes;
+  $square?: boolean;
+  $variant?: 'default' | 'raised' | 'flat' | 'thin' | 'menu';
+};
 
 const commonButtonStyles = css<StyledButtonProps>`
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: ${({ size = 'md' }) => blockSizes[size]};
-  width: ${({ fullWidth, size = 'md', square }) =>
-    fullWidth ? '100%' : square ? blockSizes[size] : 'auto'};
-  padding: ${({ square }) => (square ? 0 : `0 10px`)};
+  height: ${({ $size = 'md' }) => blockSizes[$size]};
+  width: ${({ $fullWidth, $size = 'md', $square }) =>
+    $fullWidth ? '100%' : $square ? blockSizes[$size] : 'auto'};
+  padding: ${({ $square }) => ($square ? 0 : `0 10px`)};
   font-size: 1rem;
   user-select: none;
   &:active {
-    padding-top: ${({ disabled }) => !disabled && '2px'};
+    padding-top: ${({ $disabled }) => !$disabled && '2px'};
   }
-  padding-top: ${({ active, disabled }) => active && !disabled && '2px'};
+  padding-top: ${({ $active, $disabled }) => $active && !$disabled && '2px'};
   &:after {
     content: '';
     position: absolute;
@@ -80,11 +79,11 @@ const commonButtonStyles = css<StyledButtonProps>`
 `;
 
 export const StyledButton = styled.button<StyledButtonProps>`
-  ${({ active, disabled, primary, theme, variant }) =>
-    variant === 'flat'
+  ${({ $active, $disabled, $primary, theme, $variant }) =>
+    $variant === 'flat'
       ? css`
           ${createFlatBoxStyles()}
-          ${primary
+          ${$primary
             ? `
           border: 2px solid ${theme.checkmark};
             outline: 2px solid ${theme.flatDark};
@@ -96,31 +95,31 @@ export const StyledButton = styled.button<StyledButtonProps>`
             outline-offset: -4px;
           `}
           &:focus:after, &:active:after {
-            ${!active && !disabled && focusOutline}
+            ${!$active && !$disabled && focusOutline}
             outline-offset: -4px;
           }
         `
-      : variant === 'menu' || variant === 'thin'
+      : $variant === 'menu' || $variant === 'thin'
       ? css`
           ${createBoxStyles()};
           border: 2px solid transparent;
           &:hover,
           &:focus {
-            ${!disabled &&
-            !active &&
+            ${!$disabled &&
+            !$active &&
             createBorderStyles({ style: 'buttonThin' })}
           }
           &:active {
-            ${!disabled && createBorderStyles({ style: 'buttonThinPressed' })}
+            ${!$disabled && createBorderStyles({ style: 'buttonThinPressed' })}
           }
-          ${active && createBorderStyles({ style: 'buttonThinPressed' })}
-          ${disabled && createDisabledTextStyles()}
+          ${$active && createBorderStyles({ style: 'buttonThinPressed' })}
+          ${$disabled && createDisabledTextStyles()}
         `
       : css`
           ${createBoxStyles()};
           border: none;
-          ${disabled && createDisabledTextStyles()}
-          ${active
+          ${$disabled && createDisabledTextStyles()}
+          ${$active
             ? createHatchedBackground({
                 mainColor: theme.material,
                 secondaryColor: theme.borderLightest
@@ -130,7 +129,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
             box-sizing: border-box;
             content: '';
             position: absolute;
-            ${primary
+            ${$primary
               ? css`
                   left: 2px;
                   top: 2px;
@@ -145,31 +144,31 @@ export const StyledButton = styled.button<StyledButtonProps>`
                   height: 100%;
                 `}
 
-            ${active
+            ${$active
               ? createBorderStyles({
-                  style: variant === 'raised' ? 'window' : 'button',
+                  style: $variant === 'raised' ? 'window' : 'button',
                   invert: true
                 })
               : createBorderStyles({
-                  style: variant === 'raised' ? 'window' : 'button',
+                  style: $variant === 'raised' ? 'window' : 'button',
                   invert: false
                 })}
           }
           &:active:before {
-            ${!disabled &&
+            ${!$disabled &&
             createBorderStyles({
-              style: variant === 'raised' ? 'window' : 'button',
+              style: $variant === 'raised' ? 'window' : 'button',
               invert: true
             })}
           }
           &:focus:after,
           &:active:after {
-            ${!disabled && focusOutline}
+            ${!$disabled && focusOutline}
             outline-offset: -8px;
           }
           &:active:focus:after,
           &:active:after {
-            top: ${active ? '0' : '1px'};
+            top: ${$active ? '0' : '1px'};
           }
         `}
   ${commonButtonStyles}
@@ -195,18 +194,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     return (
       <StyledButton
-        active={active}
+        $active={active}
         disabled={disabled}
         $disabled={disabled}
-        fullWidth={fullWidth}
+        $fullWidth={fullWidth}
         onClick={disabled ? undefined : onClick}
         onTouchStart={onTouchStart}
-        primary={primary}
+        $primary={primary}
         ref={ref}
-        size={size}
-        square={square}
+        $size={size}
+        $square={square}
         type={type}
-        variant={variant}
+        $variant={variant}
         {...otherProps}
       >
         {children}

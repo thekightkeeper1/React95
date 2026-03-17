@@ -12,11 +12,15 @@ type AppBarProps = {
 } & React.HTMLAttributes<HTMLElement> &
   CommonStyledProps;
 
-const StyledAppBar = styled.header<AppBarProps>`
+const StyledAppBar = styled.header<{
+  $fixed?: boolean;
+  $position?: CSSProperties['position'];
+}>`
   ${createBorderStyles()};
   ${createBoxStyles()};
 
-  position: ${props => props.position ?? (props.fixed ? 'fixed' : 'absolute')};
+  position: ${props =>
+    props.$position ?? (props.$fixed ? 'fixed' : 'absolute')};
   top: 0;
   right: 0;
   left: auto;
@@ -29,8 +33,8 @@ const AppBar = forwardRef<HTMLElement, AppBarProps>(
   ({ children, fixed = true, position = 'fixed', ...otherProps }, ref) => {
     return (
       <StyledAppBar
-        fixed={fixed}
-        position={fixed !== false ? position : undefined}
+        $fixed={fixed}
+        $position={fixed !== false ? position : undefined}
         ref={ref}
         {...otherProps}
       >

@@ -40,7 +40,7 @@ type CheckboxProps = {
 
 type CheckmarkProps = {
   $disabled: boolean;
-  variant: 'default' | 'flat';
+  $variant: 'default' | 'flat';
 };
 
 const sharedCheckboxStyles = css`
@@ -187,7 +187,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           {...otherProps}
         />
         <CheckboxComponent $disabled={disabled} role='presentation'>
-          {Icon && <Icon $disabled={disabled} variant={variant} />}
+          {Icon && <Icon $disabled={disabled} $variant={variant} />}
         </CheckboxComponent>
         {label && <LabelText>{label}</LabelText>}
       </StyledLabel>

@@ -10,17 +10,20 @@ type MenuListProps = React.HTMLAttributes<HTMLUListElement> & {
   inline?: boolean;
 } & CommonStyledProps;
 
-// TODO keyboard controls
-const MenuList = styled.ul.attrs(() => ({
+const StyledMenuList = styled.ul.attrs(() => ({
   role: 'menu'
-}))<MenuListProps>`
+}))<{
+  $fullWidth?: boolean;
+  $shadow?: boolean;
+  $inline?: boolean;
+}>`
   box-sizing: border-box;
-  width: ${props => (props.fullWidth ? '100%' : 'auto')};
+  width: ${props => (props.$fullWidth ? '100%' : 'auto')};
   padding: 4px;
   ${createBorderStyles({ style: 'window' })}
   ${createBoxStyles()}
   ${props =>
-    props.inline &&
+    props.$inline &&
     `
     display: inline-flex;
     align-items: center;
@@ -28,6 +31,18 @@ const MenuList = styled.ul.attrs(() => ({
   list-style: none;
   position: relative;
 `;
+
+const MenuList = React.forwardRef<HTMLUListElement, MenuListProps>(
+  ({ fullWidth, shadow = true, inline, ...otherProps }, ref) => (
+    <StyledMenuList
+      $fullWidth={fullWidth}
+      $shadow={shadow}
+      $inline={inline}
+      ref={ref}
+      {...otherProps}
+    />
+  )
+);
 
 MenuList.displayName = 'MenuList';
 

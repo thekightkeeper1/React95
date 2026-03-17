@@ -81,7 +81,7 @@ const StyledFlatCheckbox = styled.div<StyledCheckboxProps>`
 type IconProps = {
   'data-testid': 'checkmarkIcon';
   $disabled: boolean;
-  variant: RadioVariant;
+  $variant: RadioVariant;
 };
 
 const Icon = styled.span.attrs(() => ({
@@ -124,7 +124,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
     return (
       <StyledLabel $disabled={disabled} className={className} style={style}>
         <CheckboxComponent $disabled={disabled} role='presentation'>
-          {checked && <Icon $disabled={disabled} variant={variant} />}
+          {checked && <Icon $disabled={disabled} $variant={variant} />}
         </CheckboxComponent>
         <StyledInput
           disabled={disabled}
